@@ -29,3 +29,12 @@ function playRound(playerPlay, computerPlay) {
         return `You lose! ${computerPlay} beats ${playerPlay}.`;
     }
 }
+
+function game() {
+    for (let i = 1; i <= 5; i++) {
+
+        let playerPlay = prompt("Please enter rock, paper, or scissors:");
+        console.log(playRound(playerPlay, computerPlay()));
+
+    }
+}
