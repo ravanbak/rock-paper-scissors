@@ -1,40 +1,59 @@
 const plays = ['Rock','Paper','Scissors'];
 
-let computerPlay = () => plays[Math.round(Math.random() * 2)];
+function makeButtons() {
 
-function playRound(playerPlay, computerPlay) {
-    p = playerPlay.slice(0,1).toUpperCase();
-    c = computerPlay.slice(0,1).toUpperCase();
+    const body = document.querySelector('.buttons');
 
-    if (p === c) return 'Tie!';
-
-    let winner;
-
-    switch (p) {
-        case 'R':
-            winner = c === 'P' ? c : p;
-            break;
-        case 'P':
-            winner = c === 'S' ? c : p;
-            break;
-        case 'S':
-            winner = c === 'R' ? c : p;
-            break;
+    let btn;
+    for (let i = 0; i < plays.length; i++) {
+        btn = document.createElement('button');
+        btn.textContent = plays[i];
+        btn.classList.add('button');
+        btn.addEventListener('click', () => playRound(plays[i], computerSelection()));
+        body.appendChild(btn);
     }
 
-    if (winner === p) {
-        return `You win! ${playerPlay} beats ${computerPlay}.`;
-    }
-    else {
-        return `You lose! ${computerPlay} beats ${playerPlay}.`;
-    }
 }
 
-function game() {
-    for (let i = 1; i <= 5; i++) {
+makeButtons();
 
-        let playerPlay = prompt("Please enter rock, paper, or scissors:");
-        console.log(playRound(playerPlay, computerPlay()));
+function computerSelection() {
+    return plays[Math.round(Math.random() * 2)];
+}
 
+function playRound(playerSelection, computerSelection) {
+
+    p = playerSelection.slice(0,1).toUpperCase();
+    c = computerSelection.slice(0,1).toUpperCase();
+
+    let output = '';
+
+    if (p === c) {
+        output = 'Tie!';
     }
+    else {
+        let winner;
+
+        switch (p) {
+            case 'R':
+                winner = c === 'P' ? c : p;
+                break;
+            case 'P':
+                winner = c === 'S' ? c : p;
+                break;
+            case 'S':
+                winner = c === 'R' ? c : p;
+                break;
+        }
+
+        if (winner === p) {
+            output = `You win! ${playerSelection} beats ${computerSelection}.`;
+        }
+        else {
+            output = `You lose! ${computerSelection} beats ${playerSelection}.`;
+        }
+    }
+
+    alert(output);
+
 }
