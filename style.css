@@ -1,0 +1,16 @@
+.buttons {
+    display: flex;
+    /*justify-content: left;*/
+}
+
+.button {
+    font-size: 2em;
+
+    /*flex-grow: 1;*/
+    min-width: 132px;
+    
+    /*max-width: 40%;*/
+    margin: 10px;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
