@@ -9,8 +9,26 @@
     <script src="rps.js" defer></script>
 </head>
 <body>
-    <h1>Rock, Paper, Scissors</h1>
+    <div id='heading'>
+        <h1>Rock, Paper, Scissors</h1>
+    </div>
     <div class="buttons"></div>
-    <div class="results"></div>
+    <div id="results">
+        <p id='game-result'></p>
+        <p>Round: <span id='round'></span></p>
+        <p id='winner'></p>
+        <p id='description'></p>
+    </div>
+    <div id="scores">
+        <div id='player'>
+            <div>You:</div><div id='player-selection'></div>
+            <div>Score: <span id='player-score'></span></div>
+        </div>
+        <div id='computer'>
+            <div>Computer:</div><div id='computer-selection'></div>
+            <div>Score: <span id='computer-score'></span></div>
+        </div>
+    </div>
+
 </body>
 </html>
