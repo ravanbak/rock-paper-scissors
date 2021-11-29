@@ -35,6 +35,8 @@ function startGame() {
     let p = document.querySelector('#winner');
     p = document.querySelector('#description');
     p.textContent = '';
+    p = document.querySelector('#game-over');
+    p.textContent = '';
     p = document.querySelector('#game-result');
     p.textContent = '';
 
@@ -136,12 +138,14 @@ function outputResults(player, computer, winnerMsg, description) {
     p.textContent = description;
 
     if (player.score >= 5 || computer.score >= 5) {
-        p = document.querySelector('#game-result');
+        p = document.querySelector('#game-over');
+        p.textContent = 'GAME OVER!';
 
+        p = document.querySelector('#game-result');
         if (player.score >= 5) {
-            p.textContent = `GAME OVER - YOU WIN ${player.score} TO ${computer.score}!`;
+            p.textContent = `YOU WIN ${player.score} TO ${computer.score}`;
         } else {
-            p.textContent = `GAME OVER - COMPUTER WINS ${computer.score} TO ${player.score}!`;
+            p.textContent = `COMPUTER WINS ${computer.score} TO ${player.score}`;
         }
 
         const buttons = document.querySelector('.buttons');
