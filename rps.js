@@ -3,6 +3,7 @@ const PLAYER = 1;
 const COMPUTER = 2;
 const messages = ['Tie!', 'You win!', 'You lose!'];
 const plays = ['Rock','Paper','Scissors'];
+const count = [0, 0, 0];
 
 let round;
 
@@ -17,16 +18,8 @@ const computer = {
     selection : undefined
 }
 
-const computerSelection = () => {
-    const num = Math.random() * 9;
-    
-    let i = 1;
-    if (num <= 3) {
-        i = 0;
-    } else if (num >= 6) {
-        i = 2;
-    }
-    
+function computerSelection() {
+    let i = Math.floor(Math.random() * plays.length);
     return plays[i];
 }
 
