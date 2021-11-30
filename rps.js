@@ -7,6 +7,9 @@ const count = [0, 0, 0];
 
 let round;
 
+let lastTime = null;
+let angle = 0;
+
 const player = { 
     type : PLAYER,
     score : 0,
@@ -24,6 +27,8 @@ function computerSelection() {
 }
 
 startGame();
+
+requestAnimationFrame(animateButton);
 
 function startGame() {
 
@@ -166,5 +171,23 @@ function outputResults(player, computer, winnerMsg, description) {
         });
         buttons.appendChild(btn);
     }
+
+}
+
+function animateButton(time) {
+
+    if (lastTime != null) {
+        angle = (angle + (time - lastTime) * 0.001) % (Math.PI * 2);
+    }
+    lastTime = time;
+
+    const r = 250; // ((Math.sin(angle) + 1) * 127).toFixed(0);
+    const g = 190; //((Math.sin(angle + 1) + 1) * 127).toFixed(0);
+    const b = (100 + Math.sin(angle) * 50).toFixed(0); // ((Math.sin(angle + 2) + 1) * 127).toFixed(0);
+    const buttons = document.querySelectorAll('button');
+    const c = `rgb(${r},${g},${b})`;
+    buttons.forEach(b => b.style.background = c);
+
+    requestAnimationFrame(animateButton);
 
 }
