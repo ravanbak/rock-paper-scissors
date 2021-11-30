@@ -21,16 +21,55 @@ const computer = {
     selection : undefined
 }
 
+function gameOver() {
+    
+    return (player.score >= 5 || computer.score >= 5);
+
+}
+
+function keyPressed(event) {
+
+    if (gameOver()) {
+        
+        if (event.key == 'Enter') newGame();
+
+    } else {
+
+        switch (event.key) {
+            case 'r':
+            case 'R':
+                playRound(plays[0], computerSelection());
+                break;
+            case 'p':
+            case 'P':
+                playRound(plays[1], computerSelection());
+                break;
+            case 's':
+            case 'S':
+                playRound(plays[2], computerSelection());
+                break;
+        }
+
+    }
+
+}
+
+function addKeyboardEventListeners() {
+
+    window.addEventListener("keydown", keyPressed);    
+
+}
+
 function computerSelection() {
     let i = Math.floor(Math.random() * plays.length);
     return plays[i];
 }
 
-startGame();
-
+addKeyboardEventListeners();
+newGame();
 requestAnimationFrame(animateButton);
 
-function startGame() {
+function newGame() {
 
     round = 0;
 
@@ -38,6 +77,9 @@ function startGame() {
     player.selection = '';
     computer.score = 0;
     computer.selection = '';
+
+    const b = document.querySelector('#play-again');
+    if (b) b.parentNode.removeChild(b);
 
     makeButtons();
     
@@ -49,7 +91,25 @@ function startGame() {
     p = document.querySelector('#game-result');
     p.textContent = '';
 
-    outputResults(player, computer, 'Make your selection to start the game!'); // clear any previous round results
+    outputResults(player, computer, 'Click Play to start the game!'); // clear any previous round results
+
+}
+
+function endGame() {
+
+    const buttons = document.querySelector('.buttons');
+    if (buttons) {
+        while (buttons.firstChild) {
+            buttons.removeChild(buttons.firstChild);
+        }
+    }
+
+    let btn = document.createElement('button');
+    btn.textContent = 'Play';
+    btn.classList.add('button');
+    btn.id = 'play-again';
+    btn.addEventListener('click', newGame);
+    buttons.appendChild(btn);
 
 }
 
@@ -124,6 +184,7 @@ function playRound(playerSelection, computerSelection) {
 
     outputResults(player, computer, messages[winner],  description);
 
+    checkScores();
 }
 
 function outputResults(player, computer, winnerMsg, description) {
@@ -146,32 +207,23 @@ function outputResults(player, computer, winnerMsg, description) {
     p = document.querySelector('#description');
     p.textContent = description;
 
-    if (player.score >= 5 || computer.score >= 5) {
-        p = document.querySelector('#game-over');
-        p.textContent = 'GAME OVER!';
+}
 
-        p = document.querySelector('#game-result');
-        if (player.score >= 5) {
-            p.textContent = `YOU WIN ${player.score} TO ${computer.score}`;
-        } else {
-            p.textContent = `COMPUTER WINS ${computer.score} TO ${player.score}`;
-        }
+function checkScores() {
 
-        const buttons = document.querySelector('.buttons');
-        while (buttons.firstChild) {
-            buttons.removeChild(buttons.firstChild);
-        }
+    if (player.score < 5 && computer.score < 5) return;
 
-        let btn = document.createElement('button');
-        btn.textContent = 'Play Again';
-        btn.classList.add('button');
-        btn.addEventListener('click', () => {
-            buttons.removeChild(btn);
-            startGame();
-        });
-        buttons.appendChild(btn);
+    p = document.querySelector('#game-over');
+    p.textContent = 'GAME OVER!';
+
+    p = document.querySelector('#game-result');
+    if (player.score >= 5) {
+        p.textContent = `YOU WIN ${player.score} TO ${computer.score}`;
+    } else {
+        p.textContent = `COMPUTER WINS ${computer.score} TO ${player.score}`;
     }
 
+    endGame();
 }
 
 function animateButton(time) {
