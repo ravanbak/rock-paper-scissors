@@ -17,7 +17,18 @@ const computer = {
     selection : undefined
 }
 
-const computerSelection = () => plays[Math.round(Math.random() * 2)];
+const computerSelection = () => {
+    const num = Math.random() * 9;
+    
+    let i = 1;
+    if (num <= 3) {
+        i = 0;
+    } else if (num >= 6) {
+        i = 2;
+    }
+    
+    return plays[i];
+}
 
 startGame();
 
