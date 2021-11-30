@@ -120,7 +120,7 @@ function playRound(playerSelection, computerSelection) {
 function outputResults(player, computer, winnerMsg, description) {
 
     let p = document.querySelector('#round');
-    p.textContent = round.toString();
+    p.textContent = (round === 0) ? '-' : round.toString();
 
     p = document.querySelector('#player-selection');
     p.textContent = (player.selection) ? player.selection.toUpperCase() : '---';
